@@ -14,7 +14,7 @@ import (
 #include <opus.h>
 
 int
-bridge_decoder_get_last_packet_duration(OpusDecoder *st, opus_int32 *samples)
+opus_bridge_decoder_get_last_packet_duration(OpusDecoder *st, opus_int32 *samples)
 {
 	return opus_decoder_ctl(st, OPUS_GET_LAST_PACKET_DURATION(samples));
 }
@@ -254,7 +254,7 @@ func (dec *Decoder) DecodePLCFloat32(pcm []float32) error {
 // of the last packet successfully decoded or concealed.
 func (dec *Decoder) LastPacketDuration() (int, error) {
 	var samples C.opus_int32
-	res := C.bridge_decoder_get_last_packet_duration(dec.p, &samples)
+	res := C.opus_bridge_decoder_get_last_packet_duration(dec.p, &samples)
 	if res != C.OPUS_OK {
 		return 0, Error(res)
 	}
